@@ -78,11 +78,6 @@ class Client
         return $this->apiVersion;
     }
 
-    public function getGuzzleClient()
-    {
-        return $this->guzzle_client;
-    }
-
     /**
      * @param $filePath
      * @return bool|resource
@@ -106,6 +101,52 @@ class Client
         return $this->http('GET', $this->apiHost, $path, $parameters);
     }
 
+    /**
+     * @param string $method
+     * @param string $host
+     * @param string $path
+     * @param array $parameters
+     *
+     * @return array|object|string
+     */
+    private function http($method, $host, $path, $parameters)
+    {
+        $url = sprintf('%s/%s/%s', $host, $this->apiVersion, $path);
+
+
+        if ($this->hasFile) {
+            $params = array();
+            foreach ($parameters as $key => $value) {
+                $params[] = array(
+                    'name' => $key,
+                    'contents' => $value
+                );
+            }
+            $request_key = 'multipart';
+            $request_value = $params;
+        } else {
+            $request_key = 'form_params';
+            $request_value = $parameters;
+        }
+
+        try {
+            $response = $this->getGuzzleClient()->request($method, $url . '?token=' . $this->token, [
+                $request_key => $request_value
+            ]);
+
+
+            $data = $response->getBody()->getContents();
+            $json = json_decode($data, true);
+            return $json;
+        } catch (\Exception $e) {
+            return 'متاسفانه برای ارسال درخواست شما مشکلی به وجود آمد، لطفا دوباره تلاش کنید.';
+        }
+    }
+
+    public function getGuzzleClient()
+    {
+        return $this->guzzle_client;
+    }
 
     /**
      * Make POST requests to the API.
@@ -144,44 +185,6 @@ class Client
     public function put($path, $parameters = [])
     {
         return $this->http('PUT', $this->apiHost, $path, $parameters);
-    }
-
-    /**
-     * @param string $method
-     * @param string $host
-     * @param string $path
-     * @param array $parameters
-     *
-     * @return array|object
-     */
-    private function http($method, $host, $path, $parameters)
-    {
-        $url = sprintf('%s/%s/%s', $host, $this->apiVersion, $path);
-
-
-        if ($this->hasFile) {
-            $params = array();
-            foreach ($parameters as $key => $value) {
-                $params[] = array(
-                    'name' => $key,
-                    'contents' => $value
-                );
-            }
-            $request_key = 'multipart';
-            $request_value = $params;
-        } else {
-            $request_key = 'form_params';
-            $request_value = $parameters;
-        }
-
-        $response = $this->getGuzzleClient()->request($method, $url . '?token=' . $this->token, [
-            $request_key => $request_value
-        ]);
-
-
-        $data = $response->getBody()->getContents();
-        $json = json_decode($data, true);
-        return $json;
     }
 }
 
