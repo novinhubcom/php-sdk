@@ -1,5 +1,5 @@
 # Novinhub
-راهنمای اتصال به وب سرویس Novinhub
+Novinhub php sdk
 
 ## Requirements
 
