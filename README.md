@@ -1,5 +1,5 @@
 # Novinhub
-راهنمای اتصال به وب سرویس Novinhub
+Novinhub php sdk
 
 ## Requirements
 
@@ -15,23 +15,6 @@ composer require novinhubcom/php-sdk
 ```
 
 Then run `composer install`
-
-### Manual Installation
-
-Download the files and include `autoload.php`:
-
-```php
-    require_once('/path/to/Novinhub/vendor/autoload.php');
-```
-
-## Tests
-
-To run the unit tests:
-
-```
-composer install
-./vendor/bin/phpunit
-```
 
 ## Getting Started
 
