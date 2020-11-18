@@ -1,7 +1,7 @@
 {
     "name": "novinhubcom/php-sdk",
     "type": "library",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Novinhub SDK",
     "keywords": [
         "novinhub",
