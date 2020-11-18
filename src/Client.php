@@ -40,7 +40,7 @@ class Client
 		if (!empty($token)) {
 			$this->setToken($token);
 		}
-		if ($this->apiVersion) {
+		if ($apiVersion) {
 			$this->apiVersion = $apiVersion;
 		}
 		
