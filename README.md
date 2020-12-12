@@ -14,8 +14,6 @@ To install the bindings via [Composer](http://getcomposer.org/), run following c
 composer require novinhubcom/php-sdk
 ```
 
-Then run `composer install`
-
 ## Getting Started
 
 After Installation The API can be used as easy as the following
