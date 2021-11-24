@@ -66,7 +66,7 @@ catch (Novinhub\ServerException $e){
 
 ## Documentation for API Endpoints
 
-You can find the documentation [on the website](novinhub.com/developers).
+You can find the documentation [on the website](https://novinhub.com/developers).
 
 ## Author
 
