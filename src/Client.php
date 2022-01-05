@@ -148,14 +148,14 @@ class Client
             
             $json = json_decode($data, true);
             if (!empty($json['error'])) {
-                throw new ServerException($json['error']['message'], $json['error']['trace_id'], $json);
+                throw new ServerException($json['error']['message'], isset($json['error']['trace_id']) ? $json['error']['trace_id'] : null, $json);
             }
             
             return $json;
         } catch (BadResponseException $e) {
             $json = json_decode($e->getResponse()->getBody(), true);
             if (!empty($json['error'])) {
-                throw new ServerException($json['error']['message'], $json['error']['trace_id'], $json);
+                throw new ServerException($json['error']['message'], isset($json['error']['trace_id']) ? $json['error']['trace_id'] : null, $json);
             }
             throw new Exception("Internal error");
         } catch (GuzzleHttp\Exception\GuzzleException $exception) {
